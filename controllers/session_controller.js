@@ -25,6 +25,7 @@ router.post('/sessions', (req, res) => {
         req.session.userId = user.id;
         req.session.isUser = user.isuser;
         req.session.isAdmin = user.isadmin;
+        req.session.username = user.username;
         res.redirect('/categories');
       } else {
         res.render('login', { message: 'Wrong email or password' });

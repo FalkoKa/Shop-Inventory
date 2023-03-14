@@ -33,6 +33,7 @@ router.post('/signup', (req, res) => {
               req.session.userId = dbRes.rows[0].id;
               req.session.isUser = dbRes.rows[0].isuser;
               req.session.isAdmin = dbRes.rows[0].isadmin;
+              req.session.username = dbRes.rows[0].username;
               res.redirect('/categories');
             }
           }

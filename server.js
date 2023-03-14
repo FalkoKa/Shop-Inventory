@@ -9,6 +9,7 @@ const methodOverride = require('./middlewares/method-override');
 
 const setCurrentUser = require('./middlewares/set_current_user');
 const viewHelpers = require('./middlewares/view_helpers');
+const ensureAdmin = require('./middlewares/ensure_admin');
 
 // controllers
 const categoriesController = require('./controllers/categories_controller');
@@ -49,7 +50,7 @@ app.get('/', (req, res) => {
 app.use('/', sessionController);
 app.use('/categories', categoriesController);
 app.use('/items', itemsController);
-app.use('/admin', adminController);
+app.use('/admin', ensureAdmin, adminController);
 app.use('/', userController);
 
 app.listen(port, () => {
