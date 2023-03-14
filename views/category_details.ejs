@@ -1,0 +1,13 @@
+<main>
+  <h1>Category: <%= categoryDetails.category_name %></h1>
+  <p><%= categoryDetails.category_description %></p>
+  <form action="/categories/<%= categoryDetails.category_id %>" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    <button>DELETE</button>
+  </form>
+  <a href="/categories/<%= categoryDetails.category_id %>/edit">Update</a>
+
+  <h2>In this category:</h2>
+
+  Item placeholder Item placeholder
+</main>

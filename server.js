@@ -10,6 +10,8 @@ const setCurrentUser = require('./middlewares/set_current_user');
 const viewHelpers = require('./middlewares/view_helpers');
 
 // controllers
+const categoriesController = require('./controllers/categories_controller');
+const itemsController = require('./controllers/items_controller');
 
 const expressLayouts = require('express-ejs-layouts');
 
@@ -36,9 +38,8 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.use('/categories', (req, res) => {
-  res.render('categories');
-});
+app.use('/categories', categoriesController);
+app.user('/items', itemsController);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

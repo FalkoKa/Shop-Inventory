@@ -1,0 +1,25 @@
+<main>
+  <h1>Create new category</h1>
+  <form action="/categories" method="post">
+    <label for="category_name">Name</label>
+    <input
+      type="text"
+      name="category_name"
+      id="category_name"
+      required
+      minlength="3"
+      maxlength="20"
+    />
+
+    <label for="category_description">Description</label>
+    <textarea
+      name="category_description"
+      id="category_description"
+      cols="30"
+      rows="10"
+      required
+    ></textarea>
+
+    <button>SUBMIT</button>
+  </form>
+</main>

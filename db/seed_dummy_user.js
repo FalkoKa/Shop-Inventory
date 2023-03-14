@@ -1,4 +1,4 @@
-const db = require('./index');
+const db = require('.');
 const bcrypt = require('bcrypt');
 
 const email = 'falkokammel@gmx.de';
