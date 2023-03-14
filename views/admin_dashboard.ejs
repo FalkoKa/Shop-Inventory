@@ -37,9 +37,15 @@
             value="<%= {id: element.id, isUser: true, isAdmin: false } %>"
           />
         </td>
+        <td>
+          <button class="delete" type="submit">❌</button>
+        </td>
       </tr>
       <%}) %>
     </table>
-    <button>Save</button>
+    <button type="submit">Save</button>
   </form>
 </main>
+
+<!-- cannot have nested form
+for each user line make each line a form and seperate form for each line as delete button? -->

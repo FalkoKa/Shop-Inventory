@@ -170,3 +170,12 @@ table {
   margin: 0;
   font-weight: bold;
 }
+
+button.delete {
+  color: black;
+  background-color: transparent;
+}
+
+button.delete:hover {
+  background-color: transparent;
+}

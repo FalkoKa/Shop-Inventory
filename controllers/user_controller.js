@@ -43,6 +43,26 @@ router.post('/signup', (req, res) => {
   });
 });
 
+// router.put('/user/:id/edit', (req, res) => {
+//   db.query(sql, [], (err, dbRes) => {
+//     if (err) {
+//       console.log(err)
+//     }
+//   })
+// })
+
+router.post('/user/:id/delete', (req, res) => {
+  db.query(
+    'DELETE FROM users WHERE id = $1;',
+    [req.params.id],
+    (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      res.render('admin_dashboard');
+    }
+  );
+});
 /*
 
 
