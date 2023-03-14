@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const ensureUser = require('./../middlewares/ensure_user');
+const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
 
 router.get('/', (req, res) => {
   const sql = `SELECT * FROM items ORDER BY item_id;`;
@@ -51,7 +52,7 @@ router.post('/', ensureUser, (req, res) => {
   });
 });
 
-router.get('/:id/edit', ensureUser, (req, res) => {
+router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res) => {
   db.query(
     `SELECT * FROM items WHERE item_id = $1;`,
     [req.params.id],
@@ -92,7 +93,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
-router.put('/:id', ensureUser, (req, res) => {
+router.put('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {
   db.query(
     'UPDATE items SET title = $1, item_description = $2, image_url = $3, price = $4, stock = $5, user_id = $6, cat_id = $7 WHERE item_id = $8',
     [
@@ -114,7 +115,7 @@ router.put('/:id', ensureUser, (req, res) => {
   );
 });
 
-router.delete('/:id', ensureUser, (req, res) => {
+router.delete('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {
   db.query(
     'DELETE FROM items WHERE item_id = $1;',
     [req.params.id],

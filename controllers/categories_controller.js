@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../db');
 const setCurrentUser = require('../middlewares/set_current_user');
 const ensureUser = require('./../middlewares/ensure_user');
+const ensureAdmin = require('./../middlewares/ensure_admin');
 
 router.get('/', (req, res) => {
   console.log(req.session.id);
@@ -40,7 +41,7 @@ router.post('/', ensureUser, (req, res) => {
   );
 });
 
-router.get('/:id/edit', ensureUser, (req, res) => {
+router.get('/:id/edit', ensureAdmin, (req, res) => {
   db.query(
     `SELECT * FROM categories WHERE category_id = $1;`,
     [req.params.id],
@@ -74,7 +75,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
-router.put('/:id', ensureUser, (req, res) => {
+router.put('/:id', ensureAdmin, (req, res) => {
   db.query(
     'UPDATE categories SET category_name = $1, category_description = $2 WHERE category_id = $3',
     [req.body.category_name, req.body.category_description, req.params.id],
@@ -87,7 +88,7 @@ router.put('/:id', ensureUser, (req, res) => {
   );
 });
 
-router.delete('/:id', ensureUser, (req, res) => {
+router.delete('/:id', ensureAdmin, (req, res) => {
   db.query(
     'DELETE FROM categories WHERE category_id = $1;',
     [req.params.id],

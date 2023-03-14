@@ -38,7 +38,7 @@
     <label for="stock">Stock</label>
     <input type="number" name="stock" id="stock" required min="0" />
 
-    <input type="hidden" name="user_id" value="1" />
+    <input type="hidden" name="user_id" value="<%= currentUser.id %>" />
 
     <button>SUBMIT</button>
   </form>
