@@ -1,5 +1,5 @@
 <main>
-  <form class="admin-form" action="">
+  <form class="admin-form" action="/admin/dashboard" method="post">
     <table>
       <tr>
         <th style="width: 300px">Username</th>
@@ -7,14 +7,38 @@
         <th>User</th>
         <th>Admin</th>
       </tr>
+      <% users.forEach(element => { %>
       <tr>
-        <td>username xyz</td>
-        <td>email xyz</td>
-        <td class="table-checkbox"><input type="checkbox" name=" isUser" /></td>
+        <input type="hidden" name="id" value="<%= element.id %>" />
+        <td><%= element.username %></td>
+        <td><%= element.email %></td>
         <td class="table-checkbox">
-          <input type="checkbox" name=" isAdmin" />
+          <% if (element.isuser) { %><input
+            type="checkbox"
+            name="isUser"
+            value="true"
+            checked
+          />
+          <% } else { %>
+          <input type="checkbox" name="isUser" value="false" /> <% } %>
+        </td>
+        <td class="table-checkbox">
+          <% if (element.isadmin) { %><input
+            type="checkbox"
+            name="isAdmin"
+            value="true"
+            checked
+          />
+          <% } else { %>
+          <input type="checkbox" name="isAdmin" value="false" /> <% } %>
+          <input
+            type="hidden"
+            name="data"
+            value="<%= {id: element.id, isUser: true, isAdmin: false } %>"
+          />
         </td>
       </tr>
+      <%}) %>
     </table>
     <button>Save</button>
   </form>

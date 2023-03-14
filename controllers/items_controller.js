@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const ensureUser = require('./../middlewares/ensure_user');
 
 router.get('/', (req, res) => {
   const sql = `SELECT * FROM items ORDER BY item_id;`;
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', ensureUser, (req, res) => {
   db.query(
     'SELECT category_id, category_name FROM categories ORDER BY category_id;',
     (err, dbRes) => {
@@ -28,7 +29,7 @@ router.get('/new', (req, res) => {
   );
 });
 
-router.post('/', (req, res) => {
+router.post('/', ensureUser, (req, res) => {
   const sql =
     'INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ($1, $2, $3, $4, $5, $6, $7);';
   console.log(req.body);
@@ -50,7 +51,7 @@ router.post('/', (req, res) => {
   });
 });
 
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', ensureUser, (req, res) => {
   db.query(
     `SELECT * FROM items WHERE item_id = $1;`,
     [req.params.id],
@@ -91,7 +92,7 @@ router.get('/:id', (req, res) => {
   );
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', ensureUser, (req, res) => {
   db.query(
     'UPDATE items SET title = $1, item_description = $2, image_url = $3, price = $4, stock = $5, user_id = $6, cat_id = $7 WHERE item_id = $8',
     [
@@ -113,7 +114,7 @@ router.put('/:id', (req, res) => {
   );
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureUser, (req, res) => {
   db.query(
     'DELETE FROM items WHERE item_id = $1;',
     [req.params.id],
