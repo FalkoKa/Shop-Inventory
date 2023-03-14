@@ -164,3 +164,9 @@ table {
   background-color: rgb(159, 93, 222);
   box-shadow: 1px 2px 9px -5px rgba(0, 0, 0, 1) inset;
 }
+
+.error-msg {
+  color: red;
+  margin: 0;
+  font-weight: bold;
+}

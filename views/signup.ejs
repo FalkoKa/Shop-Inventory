@@ -1,7 +1,7 @@
 <main id="login">
   <div class="login">
     <h2>Signup</h2>
-    <form action="">
+    <form action="/signup" method="post">
       <input
         type="text"
         name="username"
@@ -37,6 +37,10 @@
       />
 
       <button>Signup</button>
+
+      <% if (typeof message !== 'undefined') { %>
+      <p class="error-msg"><%= message %></p>
+      <% } %>
     </form>
   </div>
 </main>

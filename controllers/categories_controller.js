@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const setCurrentUser = require('../middlewares/set_current_user');
 
 router.get('/', (req, res) => {
+  console.log(req.session.id);
+  console.log(req.session.userId);
+  console.log(req.session.isUser);
+  console.log(req.session.isAdmin);
   const sql = `SELECT * FROM categories ORDER BY category_id;`;
 
   db.query(sql, (err, dbRes) => {

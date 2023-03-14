@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 
 const logger = require('./middlewares/logger');
 const methodOverride = require('./middlewares/method-override');
@@ -27,6 +28,10 @@ app.use(methodOverride);
 app.use(expressLayouts);
 app.use(
   session({
+    cookie: { maxAge: 86400000 },
+    store: new MemoryStore({
+      checkPeriod: 86400000, // prune expired entries every 24h
+    }),
     secret: process.env.SECRET_KEY || 'keyboard cat',
     resave: false,
     saveUninitialized: true,

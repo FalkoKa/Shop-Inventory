@@ -10,12 +10,27 @@
   <body>
     <header>
       <h1><a href="/">LOGO</a></h1>
+      <% if (isLoggedIn()) { %>
+      <nav>
+        <a href="/categories">Categories</a>
+        <a href="/items">Items</a>
+        <% if (isAdmin()) { %>
+        <a href="/admin/dashboard">Admin Dashboard</a>
+        <% } %>
+
+        <form action="/sessions" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <button>Logout</button>
+        </form>
+      </nav>
+      <% } else { %>
       <nav>
         <a href="/categories">Categories</a>
         <a href="/items">Items</a>
         <a href="/login">Login</a>
         <a href="/signup">Signup</a>
       </nav>
+      <% } %>
     </header>
 
     <%- body %>
