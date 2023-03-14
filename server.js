@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
+app.use('/categories', (req, res) => {
+  res.render('categories');
+});
+
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
