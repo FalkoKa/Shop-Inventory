@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/categories', categoriesController);
-app.user('/items', itemsController);
+app.use('/items', itemsController);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

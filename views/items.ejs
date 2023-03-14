@@ -1,0 +1,22 @@
+<main>
+  <!-- <form action="" method="get">
+    <input type="search" name="search" id="search" />
+  </form> -->
+
+  <h1>All Items</h1>
+  <a href="/items/new">Create New Item</a>
+  <div class="item-container">
+    <% items.forEach(element => { %>
+
+    <section class="item">
+      <img src="<%= element.image_url %>" alt="item image" />
+      <div class="content">
+        <h2><%= element.title %></h2>
+        <p>$ <%= element.price %></p>
+        <a href="/items/<%= element.item_id %>">See Item</a>
+      </div>
+    </section>
+
+    <% }) %>
+  </div>
+</main>

@@ -1,0 +1,19 @@
+<main>
+  <img src="<%= item.image_url %>" alt="item pic" />
+  <h1><%= item.title %></h1>
+  <p><%= item.item_description %></p>
+  <h3>Price $<%= item.price %></h3>
+  <h3>In Stock: <%= item.stock %></h3>
+  <h3>
+    Category:
+    <a href="/categories/<%= category.category_id %>"
+      ><%= category.category_name %></a
+    >
+  </h3>
+
+  <form action="/items/<%= item.item_id %>" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    <button>DELETE</button>
+  </form>
+  <a href="/items/<%= item.item_id %>/edit">Update</a>
+</main>

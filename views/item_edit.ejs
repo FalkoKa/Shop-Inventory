@@ -1,0 +1,70 @@
+<main>
+  <h1>Edit Item</h1>
+  <form action="/items/<%= item.item_id %>" method="post">
+    <input type="hidden" name="_method" value="put" />
+
+    <label for="title">Name</label>
+    <input
+      type="text"
+      name="title"
+      id="title"
+      required
+      minlength="3"
+      maxlength="20"
+      value="<%= item.title %>"
+    />
+
+    <label for="item_description">Description</label>
+    <textarea
+      name="item_description"
+      id="item_description"
+      cols="30"
+      rows="10"
+      required
+    >
+<%= item.item_description %></textarea
+    >
+
+    <label for="image_url">Image URL (optional)</label>
+    <input
+      type="text"
+      id="image_url"
+      name="image_url"
+      value="<%= item.image_url %>"
+    />
+
+    <label for="category">Category</label>
+    <select name="cat_id" id="category" required>
+      <% categories.forEach(element => { %>
+      <option value="<%= element.category_id %>">
+        <%= element.category_name %>
+      </option>
+      <% }) %>
+    </select>
+
+    <label for="price">Price</label>
+    <input
+      type="number"
+      name="price"
+      id="price"
+      required
+      min="0"
+      step="0.01"
+      value="<%= item.price %>"
+    />
+
+    <label for="stock">Stock</label>
+    <input
+      type="number"
+      name="stock"
+      id="stock"
+      required
+      min="0"
+      value="<%= item.stock %>"
+    />
+
+    <input type="hidden" name="user_id" value="1" />
+
+    <button>EDIT</button>
+  </form>
+</main>
