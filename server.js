@@ -12,6 +12,9 @@ const viewHelpers = require('./middlewares/view_helpers');
 // controllers
 const categoriesController = require('./controllers/categories_controller');
 const itemsController = require('./controllers/items_controller');
+const adminController = require('./controllers/admin_controller');
+const sessionController = require('./controllers/session_controller');
+const userController = require('./controllers/user_controller');
 
 const expressLayouts = require('express-ejs-layouts');
 
@@ -38,8 +41,11 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
+app.use('/', sessionController);
 app.use('/categories', categoriesController);
 app.use('/items', itemsController);
+app.use('/admin', adminController);
+app.use('/', userController);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
