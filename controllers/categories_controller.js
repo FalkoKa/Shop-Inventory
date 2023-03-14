@@ -57,7 +57,13 @@ router.get('/:id', (req, res) => {
         console.log(err);
       }
       const categoryDetails = dbRes.rows[0];
-      res.render('category_details', { categoryDetails });
+      db.query(
+        `SELECT * FROM items WHERE cat_id = ${req.params.id}`,
+        (err, dbRes) => {
+          const categoryItems = dbRes.rows;
+          res.render('category_details', { categoryDetails, categoryItems });
+        }
+      );
     }
   );
 });
