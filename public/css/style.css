@@ -62,6 +62,10 @@ main {
   object-fit: cover;
 }
 
+main > img {
+  width: 400px;
+}
+
 .content {
   padding: 10px;
 }
