@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const isLoggedIn = require('./../middlewares/isLoggedIn');
 
-router.get('/login', (req, res) => {
+router.get('/login', isLoggedIn, (req, res) => {
   res.render('login');
 });
 

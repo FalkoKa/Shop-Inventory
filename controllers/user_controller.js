@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const isLoggedIn = require('./../middlewares/isLoggedIn');
 
-router.get('/signup', (req, res) => {
+router.get('/signup', isLoggedIn, (req, res) => {
   res.render('signup');
 });
 
