@@ -6,7 +6,7 @@
   <section class="category">
     <h2><%= element.category_name %></h2>
     <p><%= element.category_description %></p>
-    <a href="/categories/<%= element.category_id %>">details</a>
+    <a href="/categories/<%= element.category_id %>">Details</a>
     <form action="/categories/<%= element.category_id %>" method="post">
       <input type="hidden" name="_method" value="delete" />
       <button class="delete absolute-positioning">❌</button>

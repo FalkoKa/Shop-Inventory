@@ -8,7 +8,7 @@
     <div class="sort">
       <form action="/items/sort" method="post">
         <select onchange="this.form.submit()" name="sort">
-          <option value="">---SORT---</option>
+          <option value="">------SORT------</option>
           <option value="high">Price high to low</option>
           <option value="low">Price low to high</option>
           <option value="alpha">Alphabetically</option>
@@ -44,7 +44,7 @@
     <% items.forEach(element => { %>
 
     <section class="item">
-      <img src="<%= element.image_url %>" alt="item image" />
+      <img src="<%= element.image_url %>" />
       <div class="content">
         <h2><%= element.title %></h2>
         <p>$ <%= element.price %></p>
