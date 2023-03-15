@@ -5,7 +5,28 @@ const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
 
 router.get('/', (req, res) => {
-  const sql = `SELECT * FROM items ORDER BY item_id;`;
+  let sql = `SELECT * FROM items ORDER BY item_id;`;
+
+  db.query(sql, (err, dbRes) => {
+    if (err) {
+      console.log(err);
+    }
+    const items = dbRes.rows;
+    res.render('items', { items });
+  });
+});
+
+router.post('/', (req, res) => {
+  console.log(req.body);
+  if (req.body.sort === 'high') {
+    sql = `SELECT * FROM items ORDER BY price ASC`;
+  } else if (req.body.sort === 'low') {
+    sql = `SELECT * FROM items ORDER BY price DESC`;
+  } else if (req.body.sort === 'alpha') {
+    sql = `SELECT * FROM items ORDER BY title`;
+  } else {
+    sql = `SELECT * FROM items ORDER BY item_id;`;
+  }
 
   db.query(sql, (err, dbRes) => {
     if (err) {
@@ -30,7 +51,7 @@ router.get('/new', ensureUser, (req, res) => {
   );
 });
 
-router.post('/', ensureUser, (req, res) => {
+router.post('/new', ensureUser, (req, res) => {
   const sql =
     'INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ($1, $2, $3, $4, $5, $6, $7);';
   console.log(req.body);

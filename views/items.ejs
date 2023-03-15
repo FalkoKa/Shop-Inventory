@@ -4,6 +4,17 @@
   </form> -->
 
   <h1>All Items</h1>
+  <div class="sort">
+    <form action="/items" method="post">
+      <select onchange="this.form.submit()" name="sort">
+        <option value="">---SORT BY---</option>
+        <option value="high">Price high to low</option>
+        <option value="low">Price low to high</option>
+        <option value="alpha">Alphabetically</option>
+      </select>
+    </form>
+  </div>
+
   <a href="/items/new">Create New Item</a>
   <div class="item-container">
     <% items.forEach(element => { %>
