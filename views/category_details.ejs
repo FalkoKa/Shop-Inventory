@@ -7,23 +7,23 @@
   </form>
   <a href="/categories/<%= categoryDetails.category_id %>/edit">Update</a>
 
-  <h2>In this category:</h2>
-  <% if (categoryItems.length === 0) { %>
-  <p>No Items in this category yet.</p>
-  <%} else { %>
-  <div class="item-container">
-    <% categoryItems.forEach(element => { %>
-
-    <section class="item">
-      <img src="<%= element.image_url %>" alt="item image" />
-      <div class="content">
-        <h2><%= element.title %></h2>
-        <p>$ <%= element.price %></p>
-        <a href="/items/<%= element.item_id %>">See Item</a>
-      </div>
-    </section>
-
-    <% }) %>
+  <div class="wrapper">
+    <h2>In this category:</h2>
+    <% if (categoryItems.length === 0) { %>
+    <p>No Items in this category yet.</p>
+    <%} else { %>
+    <div id="item-container" class="item-container">
+      <% categoryItems.forEach(element => { %>
+      <section class="item">
+        <img src="<%= element.image_url %>" alt="item image" />
+        <div class="content">
+          <h2><%= element.title %></h2>
+          <p>$ <%= element.price %></p>
+          <a href="/items/<%= element.item_id %>">See Item</a>
+        </div>
+      </section>
+      <% }) %>
+    </div>
+    <% } %>
   </div>
-  <% } %>
 </main>
