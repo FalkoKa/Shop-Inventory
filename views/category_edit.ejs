@@ -1,6 +1,10 @@
 <main>
   <h1>Edit category</h1>
-  <form action="/categories/<%= categoryDetails.category_id %>" method="post">
+  <form
+    class="controller-form"
+    action="/categories/<%= categoryDetails.category_id %>"
+    method="post"
+  >
     <label for="category_name">Name</label>
     <input type="hidden" name="_method" value="put" />
     <input

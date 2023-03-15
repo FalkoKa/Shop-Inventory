@@ -148,24 +148,6 @@ table {
   text-align: center;
 }
 
-.admin-form button {
-  width: 20%;
-  color: white;
-  background-color: blueviolet;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 0;
-  box-shadow: var(--shadow);
-}
-.admin-form button:hover {
-  background-color: rgb(159, 93, 222);
-}
-
-.admin-form button:active {
-  background-color: rgb(159, 93, 222);
-  box-shadow: 1px 2px 9px -5px rgba(0, 0, 0, 1) inset;
-}
-
 .error-msg {
   color: red;
   margin: 0;
@@ -190,5 +172,51 @@ button.delete:hover {
 
 .options {
   display: flex;
+  align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
+}
+
+.controller-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+
+.controller-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.fake-link {
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+input[type='search'] {
+  border-radius: 10px;
+  border: 1px solid black;
+  padding-left: 15px;
+  position: relative;
+}
+
+.search {
+  position: relative;
+}
+
+.lupe {
+  position: absolute;
 }

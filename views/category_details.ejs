@@ -3,7 +3,7 @@
   <p><%= categoryDetails.category_description %></p>
   <form action="/categories/<%= categoryDetails.category_id %>" method="post">
     <input type="hidden" name="_method" value="delete" />
-    <button>DELETE</button>
+    <button class="fake-link">Delete</button>
   </form>
   <a href="/categories/<%= categoryDetails.category_id %>/edit">Update</a>
 

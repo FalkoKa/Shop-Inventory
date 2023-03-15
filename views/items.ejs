@@ -3,7 +3,7 @@
     <input type="search" name="search" id="search" />
   </form> -->
 
-  <h1>All Items</h1>
+  <h1>Items</h1>
   <div class="options">
     <div class="sort">
       <form action="/items/sort" method="post">
@@ -31,8 +31,10 @@
 
     <div class="search">
       <form action="/items/search" method="get">
-        <input type="search" name="q" id="search" />
-        <button class="delete">🔍</button>
+        <div class="search">
+          <input type="search" name="q" id="search" />
+          <button class="delete lupe">🔍</button>
+        </div>
       </form>
     </div>
   </div>
