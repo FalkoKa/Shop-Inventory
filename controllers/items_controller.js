@@ -5,19 +5,28 @@ const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
 
 router.get('/', (req, res) => {
-  let sql = `SELECT * FROM items ORDER BY item_id;`;
+  db.query(
+    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
+    (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      const categories = dbRes.rows;
+      let sql = `SELECT * FROM items ORDER BY item_id;`;
 
-  db.query(sql, (err, dbRes) => {
-    if (err) {
-      console.log(err);
+      db.query(sql, (err, dbRes) => {
+        if (err) {
+          console.log(err);
+        }
+        const items = dbRes.rows;
+        res.render('items', { items, categories });
+      });
     }
-    const items = dbRes.rows;
-    res.render('items', { items });
-  });
+  );
 });
 
-router.post('/', (req, res) => {
-  console.log(req.body);
+router.post('/sort', (req, res) => {
+  let sql = '';
   if (req.body.sort === 'high') {
     sql = `SELECT * FROM items ORDER BY price ASC`;
   } else if (req.body.sort === 'low') {
@@ -28,13 +37,70 @@ router.post('/', (req, res) => {
     sql = `SELECT * FROM items ORDER BY item_id;`;
   }
 
-  db.query(sql, (err, dbRes) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
+    (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      const categories = dbRes.rows;
+      db.query(sql, (err, dbRes) => {
+        if (err) {
+          console.log(err);
+        }
+        const items = dbRes.rows;
+        res.render('items', { items, categories });
+      });
     }
-    const items = dbRes.rows;
-    res.render('items', { items });
-  });
+  );
+});
+
+router.post('/filter', (req, res) => {
+  const categoryID = req.body.filter;
+  db.query(
+    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
+    (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      const categories = dbRes.rows;
+      db.query(
+        'SELECT * FROM items WHERE cat_id = $1',
+        [categoryID],
+        (err, dbRes) => {
+          if (err) {
+            console.log(err);
+          }
+          const items = dbRes.rows;
+          res.render('items', { items, categories });
+        }
+      );
+    }
+  );
+});
+
+router.get('/search', (req, res) => {
+  const searchTerm = '%' + req.query.q + '%';
+  db.query(
+    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
+    (err, dbRes) => {
+      if (err) {
+        console.log(err);
+      }
+      const categories = dbRes.rows;
+
+      db.query(
+        `SELECT * FROM items WHERE title ILIKE '${searchTerm}';`,
+        (err, dbRes) => {
+          if (err) {
+            console.log(err);
+          }
+          const items = dbRes.rows;
+          res.render('items', { categories, items });
+        }
+      );
+    }
+  );
 });
 
 router.get('/new', ensureUser, (req, res) => {

@@ -187,3 +187,8 @@ button.delete:hover {
   top: 5px;
   right: 5px;
 }
+
+.options {
+  display: flex;
+  gap: 20px;
+}

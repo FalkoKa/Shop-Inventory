@@ -4,15 +4,37 @@
   </form> -->
 
   <h1>All Items</h1>
-  <div class="sort">
-    <form action="/items" method="post">
-      <select onchange="this.form.submit()" name="sort">
-        <option value="">---SORT BY---</option>
-        <option value="high">Price high to low</option>
-        <option value="low">Price low to high</option>
-        <option value="alpha">Alphabetically</option>
-      </select>
-    </form>
+  <div class="options">
+    <div class="sort">
+      <form action="/items/sort" method="post">
+        <select onchange="this.form.submit()" name="sort">
+          <option value="">---SORT---</option>
+          <option value="high">Price high to low</option>
+          <option value="low">Price low to high</option>
+          <option value="alpha">Alphabetically</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="filter">
+      <form action="/items/filter" method="post">
+        <select onchange="this.form.submit()" name="filter">
+          <option value="">---FILTER---</option>
+          <% categories.forEach(element => { %>
+          <option value="<%= element.category_id %>">
+            <%= element.category_name %>
+          </option>
+          <% }) %>
+        </select>
+      </form>
+    </div>
+
+    <div class="search">
+      <form action="/items/search" method="get">
+        <input type="search" name="q" id="search" />
+        <button class="delete">🔍</button>
+      </form>
+    </div>
   </div>
 
   <a href="/items/new">Create New Item</a>
