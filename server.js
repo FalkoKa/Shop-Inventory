@@ -52,6 +52,9 @@ app.use('/categories', categoriesController);
 app.use('/items', itemsController);
 app.use('/admin', ensureAdmin, adminController);
 app.use('/', userController);
+app.use((req, res) => {
+  res.render('404');
+});
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

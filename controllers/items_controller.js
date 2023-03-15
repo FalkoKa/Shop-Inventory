@@ -79,6 +79,7 @@ router.get('/:id', (req, res) => {
     (err, dbRes) => {
       if (err) {
         console.log(err);
+        return res.redirect('/items');
       }
       const item = dbRes.rows[0];
 

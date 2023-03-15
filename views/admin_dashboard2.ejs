@@ -1,5 +1,5 @@
 <main class="top-spacing">
-  <form class="admin-form" action="/admin/dashboard/edit" method="post">
+  <div class="form">
     <table>
       <tr>
         <th style="width: 300px">Username</th>
@@ -9,31 +9,41 @@
       </tr>
       <% users.forEach(element => { %>
       <tr>
+        <input type="hidden" name="id" value="<%= element.id %>" />
         <td><%= element.username %></td>
         <td><%= element.email %></td>
         <td class="table-checkbox">
           <% if (element.isuser) { %><input
             type="checkbox"
-            name="user_<%= element.id %>"
+            name="isUser"
+            value="true"
             checked
+            disabled
           />
           <% } else { %>
-          <input type="checkbox" name="user_<%= element.id %>" />
-          <% } %>
+          <input type="checkbox" name="isUser" value="false" disabled /> <% } %>
         </td>
         <td class="table-checkbox">
           <% if (element.isadmin) { %><input
             type="checkbox"
-            name="admin_<%= element.id %>"
+            name="isAdmin"
+            value="true"
             checked
+            disabled
           />
           <% } else { %>
-          <input type="checkbox" name="admin_<%= element.id %>" />
-          <% } %>
+          <input type="checkbox" name="isAdmin" value="false" disabled /> <% }
+          %>
+        </td>
+        <td>
+          <form action="/user/<%= element.id %>" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <button class="delete">❌</button>
+          </form>
         </td>
       </tr>
       <%}) %>
     </table>
-    <button type="submit">Save</button>
-  </form>
+    <a href="/admin/dashboard/edit">Edit</a>
+  </div>
 </main>

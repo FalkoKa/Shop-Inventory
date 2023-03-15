@@ -51,7 +51,7 @@ router.post('/signup', (req, res) => {
 //   })
 // })
 
-router.post('/user/:id/delete', (req, res) => {
+router.delete('/user/:id', (req, res) => {
   db.query(
     'DELETE FROM users WHERE id = $1;',
     [req.params.id],
@@ -59,7 +59,7 @@ router.post('/user/:id/delete', (req, res) => {
       if (err) {
         console.log(err);
       }
-      res.render('admin_dashboard');
+      res.redirect('/admin/dashboard');
     }
   );
 });

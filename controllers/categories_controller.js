@@ -62,11 +62,15 @@ router.get('/:id', (req, res) => {
     (err, dbRes) => {
       if (err) {
         console.log(err);
+        return res.redirect('/categories');
       }
       const categoryDetails = dbRes.rows[0];
       db.query(
         `SELECT * FROM items WHERE cat_id = ${req.params.id}`,
         (err, dbRes) => {
+          if (err) {
+            console.log(err);
+          }
           const categoryItems = dbRes.rows;
           res.render('category_details', { categoryDetails, categoryItems });
         }

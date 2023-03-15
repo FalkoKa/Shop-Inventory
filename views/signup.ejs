@@ -1,4 +1,4 @@
-<main id="login">
+<main class="top-spacing">
   <div class="login">
     <h2>Signup</h2>
     <form action="/signup" method="post">
@@ -37,6 +37,7 @@
       />
 
       <button>Signup</button>
+      <p>Already have an account? <a href="/login">Sign in.</a></p>
 
       <% if (typeof message !== 'undefined') { %>
       <p class="error-msg"><%= message %></p>
