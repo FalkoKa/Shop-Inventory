@@ -17,7 +17,7 @@ img {
   height: auto;
 }
 
-nav a {
+a {
   color: black;
 }
 
@@ -103,7 +103,9 @@ main > img {
 }
 
 .login {
-  width: 300px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  width: 400px;
   background-color: #d2d2d2;
   border-radius: 5px;
   padding: 30px;
@@ -115,7 +117,7 @@ main > img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .login input {
@@ -135,6 +137,7 @@ main > img {
   border-radius: 4px;
   padding: 10px 0;
   box-shadow: var(--shadow);
+  font-size: inherit;
 }
 
 .login button:hover {
@@ -313,6 +316,7 @@ input[type='search'] {
     padding: 30px;
     text-align: center;
     box-shadow: none;
+    margin: 0;
   }
   .top-spacing {
     display: flex;

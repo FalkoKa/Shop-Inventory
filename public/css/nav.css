@@ -6,9 +6,10 @@
   display: none;
   position: absolute;
   min-width: 120px;
-  background-color: rgba(198, 198, 198, 0.694);
+  background-color: rgba(198, 198, 198, 1);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 10px 10px;
+  z-index: 1;
 }
 .dropdown-content a {
   padding: 12px 16px;
