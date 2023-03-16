@@ -113,21 +113,25 @@ router.get('/new', ensureUser, (req, res) => {
         console.log(err);
       }
       const categories = dbRes.rows;
-      console.log(categories);
       res.render('create_item', { categories });
     }
   );
 });
 
 router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
-  console.log(req.file);
+  let imageURL = '';
+  if (typeof req.file === 'undefined') {
+    imageURL = req.body.image_url;
+  } else {
+    imageURL = req.file.path;
+  }
+
   const sql =
     'INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ($1, $2, $3, $4, $5, $6, $7);';
-  console.log(req.body);
   const values = [
     req.body.title,
     req.body.item_description,
-    req.body.image_url,
+    imageURL,
     req.body.price,
     req.body.stock,
     req.body.user_id,

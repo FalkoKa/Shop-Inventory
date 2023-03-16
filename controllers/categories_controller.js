@@ -6,10 +6,6 @@ const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdmin = require('./../middlewares/ensure_admin');
 
 router.get('/', (req, res) => {
-  console.log(req.session.id);
-  console.log(req.session.userId);
-  console.log(req.session.isUser);
-  console.log(req.session.isAdmin);
   const sql = `SELECT * FROM categories ORDER BY category_id;`;
 
   db.query(sql, (err, dbRes) => {
