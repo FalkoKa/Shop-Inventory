@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
           console.log(err);
         }
         const items = dbRes.rows;
+
         res.render('items', { items, categories });
       });
     }
@@ -174,7 +175,20 @@ router.get('/:id', (req, res) => {
         `SELECT category_id, category_name FROM categories WHERE category_id = ${item.cat_id}`,
         (err, dbRes) => {
           const category = dbRes.rows[0];
-          res.render('item_details', { item, category });
+
+          db.query(
+            'SELECT comment_id, input, post_date::date, fk_user_id, username FROM comments JOIN users ON fk_user_id  = id WHERE fk_item_key = $1 ORDER BY post_date',
+            [req.params.id],
+            (err, dbRes) => {
+              if (err) {
+                console.log(err);
+              }
+              console.log(dbRes.rows);
+              const comments = dbRes.rows;
+
+              res.render('item_details', { item, category, comments });
+            }
+          );
         }
       );
     }

@@ -16,4 +16,36 @@
     <button class="fake-link">Delete</button>
   </form>
   <a href="/items/<%= item.item_id %>/edit">Update</a>
+
+  <section class="comments">
+    <% if (comments.length === 0) { %>
+    <h2 style="text-align: center">There are no comments yet</h2>
+    <% } else { %>
+
+    <h2>Comments (<%= comments.length %>)</h2>
+
+    <% comments.forEach(element => { %>
+    <article class="comment">
+      <span><%= element.username %></span>
+      <span>on <%= element.post_date %></span>
+      <p><%= element.input %></p>
+      <form action="/comments/<%= element.comment_id %>" method="post">
+        <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="itemId" value="<%= item.item_id %>" />
+        <button class="delete absolute-positioning">❌</button>
+      </form>
+    </article>
+
+    <% }) %> <% } %> <% if (isLoggedIn()) { %>
+    <form class="comment-form" action="/comments/new" method="post">
+      <h3>Leave a comment</h3>
+      <textarea name="comment" id="comment" cols="40" rows="5">
+Leave a comment!</textarea
+      >
+      <input type="hidden" name="user_id" value="<%= currentUser.id %>" />
+
+      <button>Submit</button>
+    </form>
+    <% } %>
+  </section>
 </main>

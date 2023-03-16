@@ -17,6 +17,7 @@ const itemsController = require('./controllers/items_controller');
 const adminController = require('./controllers/admin_controller');
 const sessionController = require('./controllers/session_controller');
 const userController = require('./controllers/user_controller');
+const commentController = require('./controllers/comment_controller');
 
 const expressLayouts = require('express-ejs-layouts');
 
@@ -52,6 +53,7 @@ app.use('/categories', categoriesController);
 app.use('/items', itemsController);
 app.use('/admin', ensureAdmin, adminController);
 app.use('/', userController);
+app.use('/comments', commentController);
 app.use((req, res) => {
   res.render('404');
 });

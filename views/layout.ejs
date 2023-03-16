@@ -16,23 +16,23 @@
       <a href="/"><img src="/images/logo.png" alt="logo" /></a>
       <% if (isLoggedIn()) { %>
       <nav>
-        <a href="/categories">Categories</a>
-        <a href="/items">Items</a>
+        <a class="nav-link" href="/categories">Categories</a>
+        <a class="nav-link" href="/items">Items</a>
         <% if (isAdmin()) { %>
-        <a href="/admin/dashboard">Admin Dashboard</a>
+        <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
         <% } %>
 
         <form action="/sessions" method="post">
           <input type="hidden" name="_method" value="delete" />
-          <button class="fake-link">Logout</button>
+          <button class="fake-link nav-link">Logout</button>
         </form>
       </nav>
       <% } else { %>
       <nav>
-        <a href="/categories">Categories</a>
-        <a href="/items">Items</a>
-        <a href="/login">Login</a>
-        <a href="/signup">Signup</a>
+        <a class="nav-link" href="/categories">Categories</a>
+        <a class="nav-link" href="/items">Items</a>
+        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/signup">Signup</a>
       </nav>
       <% } %>
     </header>

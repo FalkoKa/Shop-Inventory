@@ -23,8 +23,23 @@ CREATE TABLE items (
     price NUMERIC,
     stock INTEGER,
     user_id INTEGER REFERENCES users (id) ON DELETE SET NULL,
-    cat_id INTEGER REFERENCES categories (category_id) ON DELETE CASCADE;
+    cat_id INTEGER REFERENCES categories (category_id) ON DELETE CASCADE
 );
+
+CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    input TEXT,
+    post_date TIMESTAMP DEFAULT NOW(),
+    fk_item_key INTEGER REFERENCES items (item_id) ON DELETE CASCADE,
+    fk_user_id INTEGER REFERENCES users (id) ON DELETE CASCADE
+);
+
+INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the first test comment', 1, 1);
+INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the second test comment', 1, 1);
+INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the third test comment', 5, 1);
+
+select comment_id, input, post_date, fk_user_id, username from comments join users on fk_user_id  = id;
+
 
 INSERT INTO categories (category_name, category_description) VALUES ('Shoes', 'Shoes can be defined as an outer covering for the human foot typically having a thick or stiff sole with an attached heel and an upper part of lighter material (such as leather)');
 INSERT INTO categories (category_name, category_description) VALUES ('Shirts', 'Shirts can be defined as a garment for the upper part of the body usually with a collar, sleeves, a front opening, and a tail long enough to be tucked inside pants or a skirt.');
@@ -44,3 +59,5 @@ ALTER TABLE items
 
 
     TABLE "items" CONSTRAINT "items_cat_id_fkey" FOREIGN KEY (cat_id) REFERENCES categories(category_id)
+
+

@@ -18,7 +18,7 @@ router.get('/dashboard/edit', (req, res) => {
   });
 });
 
-router.post('/dashboard/edit', (req, res) => {
+router.post('/dashboard', (req, res) => {
   const keys = Object.keys(req.body);
 
   keys.forEach((element) => {
@@ -108,7 +108,12 @@ router.post('/dashboard/edit', (req, res) => {
     });
   });
 
-  res.redirect('/admin/dashboard');
+  db.query('SELECT * FROM users ORDER BY id;', (err, dbRes) => {
+    const users = dbRes.rows;
+    res.render('admin_dashboard2', { users });
+  });
+
+  // res.redirect('/admin/dashboard');
 });
 
 module.exports = router;

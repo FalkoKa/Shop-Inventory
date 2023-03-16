@@ -44,14 +44,6 @@ router.post('/signup', (req, res) => {
   });
 });
 
-// router.put('/user/:id/edit', (req, res) => {
-//   db.query(sql, [], (err, dbRes) => {
-//     if (err) {
-//       console.log(err)
-//     }
-//   })
-// })
-
 router.delete('/user/:id', (req, res) => {
   db.query(
     'DELETE FROM users WHERE id = $1;',
@@ -64,18 +56,5 @@ router.delete('/user/:id', (req, res) => {
     }
   );
 });
-/*
-
-
--> this is signup >>> router.get("/users/new") // get new user form
-
-
-router.delete("/users/:id") // delete a user                -> on admin dashboard?
-router.put("/users/:id") // update single user              -> on admin dashboard?
-router.get("/users/:id/edit") // get existing user form     -> on admin dashboard?
-router.get("/users/:id") // get single user                 -> on admit dashboard?
-
-
-*/
 
 module.exports = router;
