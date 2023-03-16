@@ -8,6 +8,7 @@ const logger = require('./middlewares/logger');
 const methodOverride = require('./middlewares/method-override');
 
 const setCurrentUser = require('./middlewares/set_current_user');
+const setCurrentCategories = require('./middlewares/set_current_categories');
 const viewHelpers = require('./middlewares/view_helpers');
 const ensureAdmin = require('./middlewares/ensure_admin');
 
@@ -40,6 +41,7 @@ app.use(
   })
 );
 
+app.use(setCurrentCategories);
 app.use(setCurrentUser);
 app.use(viewHelpers);
 

@@ -46,14 +46,12 @@
     <% }) %> <% } %> <% if (isLoggedIn()) { %>
     <form class="comment-form" action="/comments" method="post">
       <h3>Leave a comment</h3>
-      <textarea name="input" id="input" cols="40" rows="5">
-Leave a comment!</textarea
-      >
+      <textarea name="input" id="input" cols="40" rows="5"></textarea>
       <input type="hidden" name="fk_user_id" value="<%= currentUser.id %>" />
       <input type="hidden" name="fk_item_key" value="<%= item.item_id %>" />
       <input type="hidden" name="itemId" value="<%= item.item_id %>" />
 
-      <button>Submit</button>
+      <button class="fake-link">Submit</button>
     </form>
     <% } %>
   </section>

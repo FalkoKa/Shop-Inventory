@@ -17,6 +17,10 @@ img {
   height: auto;
 }
 
+nav a {
+  color: black;
+}
+
 a > img {
   height: 100px;
 }
@@ -65,6 +69,7 @@ main {
   gap: 10px;
   align-items: center;
   justify-content: center;
+  margin-top: 25px;
 }
 
 .wrapper {
@@ -194,6 +199,7 @@ button.delete:hover {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 
 .controller-form {
@@ -317,6 +323,10 @@ input[type='search'] {
 }
 
 @media (prefers-color-scheme: dark) {
+  nav a {
+    color: white;
+  }
+
   header {
     background-color: #343434;
   }

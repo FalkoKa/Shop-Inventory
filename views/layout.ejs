@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
     <link
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -16,7 +17,19 @@
       <a href="/"><img src="/images/logo.png" alt="logo" /></a>
       <% if (isLoggedIn()) { %>
       <nav>
-        <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+        <div class="dropdown">
+          <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+          <div class="dropdown-content">
+            <% currentCategories.forEach(element => { %>
+
+            <a href="/categories/<%= element.category_id %>"
+              ><%= element.category_name %></a
+            >
+
+            <% }) %>
+          </div>
+        </div>
+
         <a id="itemss" class="nav-link" href="/items">Items</a>
         <% if (isAdmin()) { %>
         <a id="adminss" class="nav-link" href="/admin/dashboard"
@@ -31,14 +44,25 @@
       </nav>
       <% } else { %>
       <nav>
-        <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+        <div class="dropdown">
+          <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+          <div class="dropdown-content">
+            <% currentCategories.forEach(element => { %>
+
+            <a href="/categories/<%= element.category_id %>"
+              ><%= element.category_name %></a
+            >
+
+            <% }) %>
+          </div>
+        </div>
+
         <a id="itemss" class="nav-link" href="/items">Items</a>
         <a id="loginn" class="nav-link" href="/login">Login</a>
         <a id="signupp" class="nav-link" href="/signup">Signup</a>
       </nav>
       <% } %>
     </header>
-
     <%- body %>
   </body>
 </html>
