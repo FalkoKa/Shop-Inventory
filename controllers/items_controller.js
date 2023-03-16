@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../db');
 const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
+const upload = require('./../middlewares/upload');
 
 router.get('/', (req, res) => {
   db.query(
@@ -118,7 +119,8 @@ router.get('/new', ensureUser, (req, res) => {
   );
 });
 
-router.post('/new', ensureUser, (req, res) => {
+router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
+  console.log(req.file);
   const sql =
     'INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ($1, $2, $3, $4, $5, $6, $7);';
   console.log(req.body);
@@ -131,6 +133,8 @@ router.post('/new', ensureUser, (req, res) => {
     req.body.user_id,
     req.body.cat_id,
   ];
+
+  // if statement to check which one to insert? req.body.image_url or req.body.uploadedFile
 
   db.query(sql, values, (err, dbRes) => {
     if (err) {

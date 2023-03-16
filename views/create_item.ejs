@@ -1,6 +1,11 @@
 <main>
   <h1>Create New Item</h1>
-  <form class="controller-form" action="/items/new" method="post">
+  <form
+    class="controller-form"
+    action="/items/new"
+    method="post"
+    enctype="multipart/form-data"
+  >
     <div>
       <label for="title">Name</label>
       <input
@@ -27,6 +32,11 @@
     <div>
       <label for="image_url">Image URL (optional)</label>
       <input type="text" id="image_url" name="image_url" />
+    </div>
+
+    <div>
+      <label for="image_select">Upload image (optional)</label>
+      <input type="file" name="uploadedFile" id="image_select" />
     </div>
 
     <div>

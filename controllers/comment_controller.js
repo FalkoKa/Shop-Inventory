@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db');
 const setCurrentUser = require('../middlewares/set_current_user');
 const ensureUser = require('./../middlewares/ensure_user');
-const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
+const ensureAdminOrCreator2 = require('./../middlewares/ensure_admin_creator2');
 
 router.post('/', ensureUser, (req, res) => {
   const sql =
@@ -20,7 +20,7 @@ router.post('/', ensureUser, (req, res) => {
   );
 });
 
-router.delete('/:id', ensureAdminOrCreator, (req, res) => {
+router.delete('/:id', ensureAdminOrCreator2, (req, res) => {
   const sql = 'DELETE FROM comments WHERE comment_id = $1;';
   db.query(sql, [req.params.id], (err, dbRes) => {
     res.redirect(`/items/${req.body.itemId}`);
@@ -28,5 +28,3 @@ router.delete('/:id', ensureAdminOrCreator, (req, res) => {
 });
 
 module.exports = router;
-
-// view for editing
