@@ -15,9 +15,7 @@ There is a dark mode available. The shown version depends on the user's system s
 
 The app is tested on mobile devices.
 
-<img src="/wireframe-screenshots/screenshot_mobiles.png" height="400">
-
-![Mobile Devices](/wireframe-screenshots/screenshot_mobiles.png)
+<img src="/wireframe-screenshots/screenshot_mobiles.png" height="600">
 
 The app is deployed on render.com
 
