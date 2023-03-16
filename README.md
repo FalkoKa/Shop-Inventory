@@ -1,14 +1,17 @@
 # Project Description
 
+[Live Preview](https://shopinventoryapp.onrender.com/)
+
 A basic CRUD App built with Node and Express JS. Displaying shop inventory, structured in catogories.
 
 New users have to be approved by the admin first before being able to create categories or items.
 
 Only Admin or the creating user can update and delte items. Categories can only be created, updated and delted by the admin.
+![Admin Dashboard](/wireframe-screenshots/screenshot_admin_dashboard.png)
 
 There is a dark mode available. The shown version depends on the user's system settings (CSS media query).
 
-![Light Mode](/wireframe-screenshots/screenshot_dark_light.png)
+![Light Mode](/wireframe-screenshots/screenshot_light_mode.png)
 ![Dark Mode](/wireframe-screenshots/screenshot_dark_mode.png)
 
 The app is tested on mobile devices.
@@ -17,7 +20,7 @@ The app is tested on mobile devices.
 
 The app is deployed on render.com
 
-Live Preview
+<img src="/wireframe-screenshots/screenshot_light_mode.png" />
 
 # Technologies Used
 
