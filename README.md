@@ -7,7 +7,7 @@ A basic CRUD App built with Node and Express JS. Displaying shop inventory, stru
 New users have to be approved by the admin first before being able to create categories or items.
 
 Only Admin or the creating user can update and delte items. Categories can only be created, updated and delted by the admin.
-![Admin Dashboard](/wireframe-screenshots/screenshot_admin_dashboard.png)
+![Admin Dashboard](/wireframe-screenshots/screenshot_admin_dashboard.png | width=90)
 
 There is a dark mode available. The shown version depends on the user's system settings (CSS media query).
 
@@ -19,8 +19,6 @@ The app is tested on mobile devices.
 ![Mobile Devices](/wireframe-screenshots/screenshot_mobiles.png)
 
 The app is deployed on render.com
-
-<img src="/wireframe-screenshots/screenshot_light_mode.png" />
 
 # Technologies Used
 
