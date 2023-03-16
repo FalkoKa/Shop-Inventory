@@ -107,13 +107,9 @@ router.post('/dashboard', (req, res) => {
       );
     });
   });
-
-  db.query('SELECT * FROM users ORDER BY id;', (err, dbRes) => {
-    const users = dbRes.rows;
-    res.render('admin_dashboard2', { users });
-  });
-
-  // res.redirect('/admin/dashboard');
+  setTimeout(() => {
+    res.redirect('/admin/dashboard');
+  }, 1000);
 });
 
 module.exports = router;

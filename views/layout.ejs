@@ -16,10 +16,12 @@
       <a href="/"><img src="/images/logo.png" alt="logo" /></a>
       <% if (isLoggedIn()) { %>
       <nav>
-        <a class="nav-link" href="/categories">Categories</a>
-        <a class="nav-link" href="/items">Items</a>
+        <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+        <a id="itemss" class="nav-link" href="/items">Items</a>
         <% if (isAdmin()) { %>
-        <a class="nav-link" href="/admin/dashboard">Admin Dashboard</a>
+        <a id="adminss" class="nav-link" href="/admin/dashboard"
+          >Admin Dashboard</a
+        >
         <% } %>
 
         <form action="/sessions" method="post">
@@ -29,10 +31,10 @@
       </nav>
       <% } else { %>
       <nav>
-        <a class="nav-link" href="/categories">Categories</a>
-        <a class="nav-link" href="/items">Items</a>
-        <a class="nav-link" href="/login">Login</a>
-        <a class="nav-link" href="/signup">Signup</a>
+        <a id="categoriess" class="nav-link" href="/categories">Categories</a>
+        <a id="itemss" class="nav-link" href="/items">Items</a>
+        <a id="loginn" class="nav-link" href="/login">Login</a>
+        <a id="signupp" class="nav-link" href="/signup">Signup</a>
       </nav>
       <% } %>
     </header>
