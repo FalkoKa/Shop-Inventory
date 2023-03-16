@@ -32,7 +32,7 @@ app.use(
   session({
     cookie: { maxAge: 86400000 },
     store: new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
+      checkPeriod: 86400000,
     }),
     secret: process.env.SECRET_KEY || 'keyboard cat',
     resave: false,

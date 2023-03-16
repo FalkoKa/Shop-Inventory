@@ -34,9 +34,7 @@ CREATE TABLE comments (
     fk_user_id INTEGER REFERENCES users (id) ON DELETE CASCADE
 );
 
-INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the first test comment', 1, 1);
-INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the second test comment', 1, 1);
-INSERT INTO comments (input, fk_item_key, fk_user_id) VALUES ('This is the third test comment', 5, 1);
+
 
 select comment_id, input, post_date, fk_user_id, username from comments join users on fk_user_id  = id;
 
@@ -48,7 +46,6 @@ INSERT INTO items (title, item_description, image_url, price, stock, user_id, ca
 INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ('Fancy Shoes', 'This is a fancy black leather shoe designed by whoever', 'https://pyxis.nymag.com/v1/imgs/3e4/160/12929765dae08fb2dbfe5327d557bc37bf-rockport-big-bucks-margin.rhorizontal.w600.jpg', 199.99, 3, 1, 1);
 
 
-FOREIGN KEY (cat_id) REFERENCES items (cat_id) ON DELETE CASCADE;
 
 "items_cat_id_fkey" FOREIGN KEY (cat_id) REFERENCES categories(category_id)
 
