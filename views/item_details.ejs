@@ -29,20 +29,24 @@
       <span><%= element.username %></span>
       <span>on <%= element.post_date %></span>
       <p><%= element.input %></p>
+      <% if (isUser()) { %>
       <form action="/comments/<%= element.comment_id %>" method="post">
         <input type="hidden" name="_method" value="delete" />
         <input type="hidden" name="itemId" value="<%= item.item_id %>" />
         <button class="delete absolute-positioning">❌</button>
       </form>
+      <% } %>
     </article>
 
     <% }) %> <% } %> <% if (isLoggedIn()) { %>
-    <form class="comment-form" action="/comments/new" method="post">
+    <form class="comment-form" action="/comments" method="post">
       <h3>Leave a comment</h3>
-      <textarea name="comment" id="comment" cols="40" rows="5">
+      <textarea name="input" id="input" cols="40" rows="5">
 Leave a comment!</textarea
       >
-      <input type="hidden" name="user_id" value="<%= currentUser.id %>" />
+      <input type="hidden" name="fk_user_id" value="<%= currentUser.id %>" />
+      <input type="hidden" name="fk_item_key" value="<%= item.item_id %>" />
+      <input type="hidden" name="itemId" value="<%= item.item_id %>" />
 
       <button>Submit</button>
     </form>

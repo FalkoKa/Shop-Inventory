@@ -1,16 +1,19 @@
 <main>
   <h1>Categories</h1>
+  <% if (isUser()) { %>
   <a href="/categories/new">Create new category</a>
-  <% categories.forEach(element => { %>
+  <% } %> <% categories.forEach(element => { %>
 
   <section class="category">
     <h2><%= element.category_name %></h2>
     <p><%= element.category_description %></p>
     <a href="/categories/<%= element.category_id %>">Details</a>
+    <% if (isUser()) {%>
     <form action="/categories/<%= element.category_id %>" method="post">
       <input type="hidden" name="_method" value="delete" />
       <button class="delete absolute-positioning">❌</button>
     </form>
+    <% } %>
   </section>
 
   <% }) %>
