@@ -1,6 +1,19 @@
 # Project Description
 
-A basic CRUD App built with Node and Express JS. Displaying shop inventory, structured in catogories. Onnly Admin or the creating user can update and delte items. Categories can only be created, updated and delted by the admin.
+A basic CRUD App built with Node and Express JS. Displaying shop inventory, structured in catogories.
+
+New users have to be approved by the admin first before being able to create categories or items.
+
+Only Admin or the creating user can update and delte items. Categories can only be created, updated and delted by the admin.
+
+There is a dark mode available. The shown version depends on the user's system settings (CSS media query).
+
+![Light Mode](/wireframe-screenshots/screenshot_dark_light.png)
+![Dark Mode](/wireframe-screenshots/screenshot_dark_mode.png)
+
+The app is tested on mobile devices.
+
+![Mobile Devices](/wireframe-screenshots/screenshot_mobiles.png)
 
 The app is deployed on render.com
 
