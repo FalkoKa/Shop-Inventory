@@ -138,8 +138,6 @@ router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
     req.body.cat_id,
   ];
 
-  // if statement to check which one to insert? req.body.image_url or req.body.uploadedFile
-
   db.query(sql, values, (err, dbRes) => {
     if (err) {
       console.log(err);
@@ -155,6 +153,7 @@ router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res) => {
     (err, dbRes) => {
       if (err) {
         console.log(err);
+        return res.render('404');
       }
       const item = dbRes.rows[0];
       db.query(
@@ -182,6 +181,9 @@ router.get('/:id', (req, res) => {
       db.query(
         `SELECT category_id, category_name FROM categories WHERE category_id = ${item.cat_id}`,
         (err, dbRes) => {
+          if (err) {
+            return res.redirect('/items');
+          }
           const category = dbRes.rows[0];
 
           db.query(
@@ -190,8 +192,8 @@ router.get('/:id', (req, res) => {
             (err, dbRes) => {
               if (err) {
                 console.log(err);
+                return res.redirect('/items');
               }
-              console.log(dbRes.rows);
               const comments = dbRes.rows;
 
               res.render('item_details', { item, category, comments });
