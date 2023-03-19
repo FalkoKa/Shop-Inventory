@@ -7,7 +7,8 @@ function ensureAdminOrCreator(req, res, next) {
       if (err) {
         console.log(err);
       }
-      const creator = dbRes.rows[0].user_id;
+      const creator = dbRes.rows[0].fk_user_id;
+      console.log(creator);
       if (req.session.userId === creator || req.session.isAdmin) {
         return next();
       } else {
