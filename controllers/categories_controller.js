@@ -52,27 +52,31 @@ router.get('/:id/edit', ensureAdmin, (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  db.query(
-    `SELECT * FROM categories WHERE category_id = $1;`,
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-        return res.redirect('/categories');
-      }
-      const categoryDetails = dbRes.rows[0];
-      db.query(
-        `SELECT * FROM items WHERE cat_id = ${req.params.id}`,
-        (err, dbRes) => {
-          if (err) {
-            console.log(err);
-          }
-          const categoryItems = dbRes.rows;
-          res.render('category_details', { categoryDetails, categoryItems });
+  try {
+    db.query(
+      `SELECT * FROM categories WHERE category_id = $1;`,
+      [req.params.id],
+      (err, dbRes) => {
+        if (err) {
+          console.log(err);
+          return res.redirect('/categories');
         }
-      );
-    }
-  );
+        const categoryDetails = dbRes.rows[0];
+        db.query(
+          `SELECT * FROM items WHERE cat_id = ${req.params.id}`,
+          (err, dbRes) => {
+            if (err) {
+              console.log(err);
+            }
+            const categoryItems = dbRes.rows;
+            res.render('category_details', { categoryDetails, categoryItems });
+          }
+        );
+      }
+    );
+  } catch (err) {
+    res.send('test');
+  }
 });
 
 router.put('/:id', ensureAdmin, (req, res) => {

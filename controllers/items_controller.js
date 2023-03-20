@@ -168,13 +168,13 @@ router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  // try {
   db.query(
     `SELECT * FROM items WHERE item_id = $1;`,
     [req.params.id],
     (err, dbRes) => {
       if (err) {
         console.log(err);
-        return res.redirect('/items');
       }
       const item = dbRes.rows[0];
 
@@ -203,6 +203,10 @@ router.get('/:id', (req, res) => {
       );
     }
   );
+  // } catch (err) {
+  //   console.log('test');
+  //   res.status(404).render('404');
+  // }
 });
 
 router.put('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {
