@@ -11,6 +11,7 @@ const setCurrentUser = require('./middlewares/set_current_user');
 const setCurrentCategories = require('./middlewares/set_current_categories');
 const viewHelpers = require('./middlewares/view_helpers');
 const ensureAdmin = require('./middlewares/ensure_admin');
+const errorHandler = require('./middlewares/error_handler');
 
 // controllers
 const categoriesController = require('./controllers/categories_controller');
@@ -56,9 +57,11 @@ app.use('/items', itemsController);
 app.use('/admin', ensureAdmin, adminController);
 app.use('/', userController);
 app.use('/comments', commentController);
+
 app.use((req, res) => {
   res.render('404');
 });
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
