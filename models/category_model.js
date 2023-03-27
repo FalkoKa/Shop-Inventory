@@ -11,7 +11,7 @@ class Category {
     return db
       .query('SELECT * FROM categories WHERE category_id = $1', [id])
       .then((result) => {
-        if (result.rows[0] === 0) {
+        if (result.rows.length === 0) {
           throw new Error(`record with id ${id} not found`);
         }
         return result.rows[0];
