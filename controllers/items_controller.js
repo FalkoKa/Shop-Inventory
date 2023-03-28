@@ -4,6 +4,7 @@ const db = require('../db');
 const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
 const upload = require('./../middlewares/upload');
+const Item = require('./../models/item_model');
 
 router.get('/', (req, res) => {
   db.query(
@@ -126,24 +127,15 @@ router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
     imageURL = req.file.path;
   }
 
-  const sql =
-    'INSERT INTO items (title, item_description, image_url, price, stock, user_id, cat_id) VALUES ($1, $2, $3, $4, $5, $6, $7);';
-  const values = [
+  Item.insert(
     req.body.title,
     req.body.item_description,
     imageURL,
     req.body.price,
     req.body.stock,
     req.body.user_id,
-    req.body.cat_id,
-  ];
-
-  db.query(sql, values, (err, dbRes) => {
-    if (err) {
-      console.log(err);
-    }
-    res.redirect('/items');
-  });
+    req.body.cat_id
+  ).then(() => res.redirect('/items'));
 });
 
 router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res) => {
@@ -205,38 +197,20 @@ router.get('/:id', (req, res) => {
 });
 
 router.put('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {
-  db.query(
-    'UPDATE items SET title = $1, item_description = $2, image_url = $3, price = $4, stock = $5, user_id = $6, cat_id = $7 WHERE item_id = $8',
-    [
-      req.body.title,
-      req.body.item_description,
-      req.body.image_url,
-      req.body.price,
-      req.body.stock,
-      req.body.user_id,
-      req.body.cat_id,
-      req.params.id,
-    ],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      res.redirect('/items');
-    }
-  );
+  Item.update(
+    req.body.title,
+    req.body.item_description,
+    req.body.image_url,
+    req.body.price,
+    req.body.stock,
+    req.body.user_id,
+    req.body.cat_id,
+    req.params.id
+  ).then(() => res.redirect('/items'));
 });
 
 router.delete('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {
-  db.query(
-    'DELETE FROM items WHERE item_id = $1;',
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      res.redirect('/items');
-    }
-  );
+  Item.delete(req.params.id).then(() => res.redirect('/items'));
 });
 
 module.exports = router;

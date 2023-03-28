@@ -22,10 +22,10 @@ router.post('/', ensureUser, (req, res) => {
   );
 });
 
-router.get('/:id/edit', ensureAdmin, (req, res) => {
+router.get('/:id/edit', ensureAdmin, (req, res, next) => {
   Category.selectById(req.params.id)
     .then((categoryDetails) => res.render('category_edit', { categoryDetails }))
-    .catch((err) => next(err)); // .catch(next) is not working at all
+    .catch(next);
 });
 
 router.get('/:id', (req, res) => {
@@ -51,16 +51,20 @@ router.get('/:id', (req, res) => {
   );
 });
 
-router.put('/:id', ensureAdmin, (req, res) => {
+router.put('/:id', ensureAdmin, (req, res, next) => {
   Category.update(
     req.body.category_name,
     req.body.category_description,
     req.params.id
-  ).then(() => res.redirect('/categories'));
+  )
+    .then(() => res.redirect('/categories'))
+    .catch(next);
 });
 
-router.delete('/:id', ensureAdmin, (req, res) => {
-  Category.delete(req.params.id).then(() => res.redirect('/categories'));
+router.delete('/:id', ensureAdmin, (req, res, next) => {
+  Category.delete(req.params.id)
+    .then(() => res.redirect('/categories'))
+    .catch(next);
 });
 
 module.exports = router;
