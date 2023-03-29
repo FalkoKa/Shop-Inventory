@@ -44,6 +44,12 @@ class Item {
   static delete(id) {
     return db.query('DELETE FROM items WHERE item_id = $1;', [id]);
   }
+
+  static selectByCategoryId(id) {
+    return db
+      .query(`SELECT * FROM items WHERE cat_id = $1;`, [id])
+      .then((res) => res.rows);
+  }
 }
 
 module.exports = Item;

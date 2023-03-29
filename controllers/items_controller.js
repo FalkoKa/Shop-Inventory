@@ -5,27 +5,13 @@ const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdminOrCreator = require('./../middlewares/ensure_admin_creator');
 const upload = require('./../middlewares/upload');
 const Item = require('./../models/item_model');
+const Category = require('../models/category_model');
+const Comment = require('./../models/comment_model');
 
-router.get('/', (req, res) => {
-  db.query(
-    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      const categories = dbRes.rows;
-      let sql = `SELECT * FROM items ORDER BY item_id;`;
-
-      db.query(sql, (err, dbRes) => {
-        if (err) {
-          console.log(err);
-        }
-        const items = dbRes.rows;
-
-        res.render('items', { items, categories });
-      });
-    }
-  );
+router.get('/', (req, res, next) => {
+  Item.selectAll()
+    .then((items) => res.render('items', { items }))
+    .catch(next);
 });
 
 router.post('/sort', (req, res) => {
@@ -107,16 +93,7 @@ router.get('/search', (req, res) => {
 });
 
 router.get('/new', ensureUser, (req, res) => {
-  db.query(
-    'SELECT category_id, category_name FROM categories ORDER BY category_id;',
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      const categories = dbRes.rows;
-      res.render('create_item', { categories });
-    }
-  );
+  res.render('create_item');
 });
 
 router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
@@ -138,62 +115,33 @@ router.post('/new', ensureUser, upload.single('uploadedFile'), (req, res) => {
   ).then(() => res.redirect('/items'));
 });
 
-router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res) => {
-  db.query(
-    `SELECT * FROM items WHERE item_id = $1;`,
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-        return res.render('404');
-      }
-      const item = dbRes.rows[0];
-      db.query(
-        `SELECT category_id, category_name FROM categories ORDER BY category_id;`,
-        (err, dbRes) => {
-          const categories = dbRes.rows;
-          res.render('item_edit', { item, categories });
-        }
-      );
-    }
-  );
+router.get('/:id/edit', ensureUser, ensureAdminOrCreator, (req, res, next) => {
+  Item.selectById(req.params.id)
+    .then((item) => res.render('item_edit', { item }))
+    .catch(next);
 });
 
-router.get('/:id', (req, res) => {
-  db.query(
-    `SELECT * FROM items WHERE item_id = $1;`,
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      const item = dbRes.rows[0];
+router.get('/:id', async (req, res, next) => {
+  try {
+    let item = await Item.selectById(req.params.id);
+    let category = await db
+      .query(
+        'SELECT category_id, category_name FROM categories WHERE category_id = $1;',
+        [item.cat_id]
+      )
+      .then((res) => res.rows[0]);
+    let comments = await Comment.getByIdWithUser(req.params.id);
 
-      db.query(
-        `SELECT category_id, category_name FROM categories WHERE category_id = ${item.cat_id}`,
-        (err, dbRes) => {
-          if (err) {
-            return res.redirect('/items');
-          }
-          const category = dbRes.rows[0];
-
-          db.query(
-            'SELECT comment_id, input, post_date::date, fk_user_id, username FROM comments JOIN users ON fk_user_id  = id WHERE fk_item_key = $1 ORDER BY post_date',
-            [req.params.id],
-            (err, dbRes) => {
-              if (err) {
-                console.log(err);
-                return res.redirect('/items');
-              }
-              const comments = dbRes.rows;
-
-              res.render('item_details', { item, category, comments });
-            }
-          );
-        }
-      );
-    }
-  );
+    Promise.all([item, category, comments])
+      .then((result) => {
+        console.log(result);
+        const [item, category, comments] = result;
+        res.render('item_details', { item, category, comments });
+      })
+      .catch(next);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.put('/:id', ensureUser, ensureAdminOrCreator, (req, res) => {

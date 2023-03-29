@@ -5,6 +5,7 @@ const setCurrentUser = require('../middlewares/set_current_user');
 const ensureUser = require('./../middlewares/ensure_user');
 const ensureAdmin = require('./../middlewares/ensure_admin');
 const Category = require('./../models/category_model');
+const Item = require('./../models/item_model');
 
 router.get('/', (req, res) => {
   Category.selectAll().then((categories) =>
@@ -28,27 +29,17 @@ router.get('/:id/edit', ensureAdmin, (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:id', (req, res) => {
-  db.query(
-    `SELECT * FROM categories WHERE category_id = $1;`,
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      const categoryDetails = dbRes.rows[0];
-      db.query(
-        `SELECT * FROM items WHERE cat_id = ${req.params.id}`,
-        (err, dbRes) => {
-          if (err) {
-            console.log(err);
-          }
-          const categoryItems = dbRes.rows;
-          res.render('category_details', { categoryDetails, categoryItems });
-        }
-      );
-    }
-  );
+router.get('/:id', (req, res, next) => {
+  let category = Category.selectById(req.params.id);
+  let ItemsOfCategory = Item.selectByCategoryId(req.params.id);
+
+  Promise.all([category, ItemsOfCategory])
+    .then((result) => {
+      console.log(result);
+      const [categoryDetails, categoryItems] = result;
+      res.render('category_details', { categoryDetails, categoryItems });
+    })
+    .catch(next);
 });
 
 router.put('/:id', ensureAdmin, (req, res, next) => {

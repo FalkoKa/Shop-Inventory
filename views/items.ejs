@@ -4,10 +4,6 @@
   }
 </style>
 <main>
-  <!-- <form action="" method="get">
-    <input type="search" name="search" id="search" />
-  </form> -->
-
   <h1>Items</h1>
   <div class="options">
     <div class="sort">
@@ -25,7 +21,7 @@
       <form action="/items/filter" method="post">
         <select onchange="this.form.submit()" name="filter">
           <option value="">---FILTER---</option>
-          <% categories.forEach(element => { %>
+          <% currentCategories.forEach(element => { %>
           <option value="<%= element.category_id %>">
             <%= element.category_name %>
           </option>

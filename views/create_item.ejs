@@ -47,7 +47,7 @@
     <div>
       <label for="category">Category</label>
       <select name="cat_id" id="category" required>
-        <% categories.forEach(element => { %>
+        <% currentCategories.forEach(element => { %>
         <option value="<%= element.category_id %>">
           <%= element.category_name %>
         </option>
