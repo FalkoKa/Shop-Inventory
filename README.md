@@ -2,7 +2,7 @@
 
 [Live Preview](https://shopinventoryapp.onrender.com/)
 
-A basic CRUD App built with Node and Express JS. Displaying shop inventory, structured in catogories.
+A basic SSR CRUD App built with Node, Express JS and EJS (as a view engine). Displaying shop inventory, structured in catogories.
 
 New users have to be approved by the admin first before being able to create categories or items.
 
