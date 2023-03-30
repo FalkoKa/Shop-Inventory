@@ -1,21 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const User = require('./../models/user_model');
 
 router.get('/dashboard', (req, res) => {
-  const sql = 'SELECT * from users ORDER BY id;';
-  db.query(sql, (err, dbRes) => {
-    const users = dbRes.rows;
-    res.render('admin_dashboard2', { users });
-  });
+  User.selectAll().then((users) => res.render('admin_dashboard2', { users }));
 });
 
 router.get('/dashboard/edit', (req, res) => {
-  const sql = 'SELECT * FROM users ORDER BY id;';
-  db.query(sql, (err, dbRes) => {
-    const users = dbRes.rows;
-    res.render('admin_dashboard', { users });
-  });
+  User.selectAll().then((users) => res.render('admin_dashboard', { users }));
 });
 
 router.post('/dashboard', (req, res) => {

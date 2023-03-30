@@ -4,6 +4,7 @@ const router = express.Router();
 const db = require('../db');
 const bcrypt = require('bcrypt');
 const isLoggedIn = require('./../middlewares/isLoggedIn');
+const User = require('./../models/user_model');
 
 router.get('/signup', isLoggedIn, (req, res) => {
   res.render('signup');
@@ -44,17 +45,10 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.delete('/user/:id', (req, res) => {
-  db.query(
-    'DELETE FROM users WHERE id = $1;',
-    [req.params.id],
-    (err, dbRes) => {
-      if (err) {
-        console.log(err);
-      }
-      res.redirect('/admin/dashboard');
-    }
-  );
+router.delete('/user/:id', (req, res, next) => {
+  User.delete(req.params.id)
+    .then(() => res.redirect('/admin/dashboard'))
+    .catch(next);
 });
 
 module.exports = router;
